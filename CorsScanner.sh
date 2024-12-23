@@ -1,5 +1,8 @@
 #!/bin/bash
 
+log_potential_error() {
+    echo "$1" >> corspotentialerrors.txt
+}
 log_error() {
     echo "$1" >> corserrors.txt
 }
@@ -17,12 +20,11 @@ scan_cors() {
         if [[ "$aca_origin" == "*" || "$aca_origin" == "evil.com" ]]; then
             message="[${url}] Potential vulnerability: Access-Control-Allow-Origin allows all origins."
             echo "$message"
-            log_error "$message"
+            log_potential_error "$message"
         fi
     else
         message="[${url}] Access-Control-Allow-Origin not found."
         echo "$message"
-        log_error "$message"
     fi
 
     if [[ "$aca_credentials" == "true" ]]; then
