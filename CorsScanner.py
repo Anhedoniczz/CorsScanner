@@ -37,7 +37,6 @@ def scan_cors(url):
     except Exception as e:
         message = f"[{url}] Error: {str(e)}"
         print(message)
-        log_error(message)
 
 
 def main():
