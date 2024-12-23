@@ -86,7 +86,7 @@ Access-Control-Allow-Origin: evil.com
 [https://anotherexample.com] Exploitable: Server accepts credentials from malicious origins.
 ```
 ## POC
-You can use POC.html to exploit vulnerable urls found by this code. change url on line 19 and use the button.
+You can use POC.html to exploit vulnerable URLs found by this code. Change the URL on line 19 and use the button.
 ```
     req.open('get','vulnerable url',true);
 ```
