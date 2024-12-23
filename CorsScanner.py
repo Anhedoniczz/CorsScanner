@@ -28,7 +28,6 @@ def scan_cors(url):
         else:
             message = f"[{url}] Access-Control-Allow-Origin not found."
             print(message)
-            log_error(message)
 
         aca_credentials = cors_headers.get("Access-Control-Allow-Credentials")
         if aca_credentials == "true":
@@ -39,8 +38,6 @@ def scan_cors(url):
                 message = f"[{url}] Exploitable: Server accepts credentials from malicious origins."
                 print(message)
                 log_error(message)
-        else:
-            print(f"[{url}] Access-Control-Allow-Credentials is not set or set to false.")
     except Exception as e:
         message = f"[{url}] Error: {str(e)}"
         print(message)
