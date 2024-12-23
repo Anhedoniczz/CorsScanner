@@ -1,7 +1,5 @@
 #!/bin/bash
 
-log_potential_error() {
-    echo "$1" >> corspotentialerrors.txt
 }
 log_error() {
     echo "$1" >> corserrors.txt
@@ -20,7 +18,6 @@ scan_cors() {
         if [[ "$aca_origin" == "*" || "$aca_origin" == "evil.com" ]]; then
             message="[${url}] Potential vulnerability: Access-Control-Allow-Origin allows all origins."
             echo "$message"
-            log_potential_error "$message"
         fi
     else
         message="[${url}] Access-Control-Allow-Origin not found."
@@ -30,7 +27,6 @@ scan_cors() {
     if [[ "$aca_credentials" == "true" ]]; then
         message="[${url}] Vulnerability: Access-Control-Allow-Credentials is set to true."
         echo "$message"
-        log_error "$message"
         if [[ "$aca_origin" == "evil.com" || "$aca_origin" == "*" ]]; then
             message="[${url}] Exploitable: Server accepts credentials from malicious origins."
             echo "$message"
