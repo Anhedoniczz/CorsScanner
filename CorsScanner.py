@@ -1,10 +1,5 @@
 import argparse
 import requests
-
-
-def log_potential_error(message):
-    with open("corspotentialerrors.txt", "a") as file:
-        file.write(message + "\n")
         
 def log_error(message):
     with open("corserrors.txt", "a") as file:
