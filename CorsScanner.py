@@ -2,10 +2,13 @@ import argparse
 import requests
 
 
+def log_potential_error(message):
+    with open("corspotentialerrors.txt", "a") as file:
+        file.write(message + "\n")
+        
 def log_error(message):
     with open("corserrors.txt", "a") as file:
         file.write(message + "\n")
-
 
 def scan_cors(url):
     headers = {
@@ -24,7 +27,7 @@ def scan_cors(url):
             if aca_origin == "*" or aca_origin == "evil.com":
                 message = f"[{url}] Potential vulnerability: Access-Control-Allow-Origin allows all origins."
                 print(message)
-                log_error(message)
+                log_potential_error(message)
         else:
             message = f"[{url}] Access-Control-Allow-Origin not found."
             print(message)
