@@ -1,6 +1,5 @@
 #!/bin/bash
 
-}
 log_error() {
     echo "$1" >> corserrors.txt
 }
