@@ -1,6 +1,6 @@
 import argparse
 import requests
-        
+
 def log_error(message):
     with open("corserrors.txt", "a") as file:
         file.write(message + "\n")
@@ -13,7 +13,7 @@ def scan_cors(url):
 
     try:
         print(f"\nScanning {url}...")
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, timeout=5)
         cors_headers = response.headers
 
         aca_origin = cors_headers.get("Access-Control-Allow-Origin")
@@ -34,10 +34,14 @@ def scan_cors(url):
                 message = f"[{url}] Exploitable: Server accepts credentials from malicious origins."
                 print(message)
                 log_error(message)
+    except requests.exceptions.Timeout:
+        message = f"[{url}] Error: Request timed out after 5 seconds."
+        print(message)
+        log_error(message)
     except Exception as e:
         message = f"[{url}] Error: {str(e)}"
         print(message)
-
+        log_error(message)
 
 def main():
     parser = argparse.ArgumentParser(description="CORS Exploit Scanner")
@@ -61,7 +65,6 @@ def main():
     else:
         print("[Error] You must provide either a URL with -u or a file with -i.")
         parser.print_help()
-
 
 if __name__ == "__main__":
     main()
