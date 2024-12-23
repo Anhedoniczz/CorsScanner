@@ -8,7 +8,14 @@ scan_cors() {
     local url=$1
     echo -e "\nScanning $url..."
 
-    response=$(curl -s -D - -o /dev/null "$url" -H "Origin: evil.com" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0")
+    response=$(curl -s --max-time 5 -D - -o /dev/null "$url" -H "Origin: evil.com" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0")
+    if [[ $? -ne 0 ]]; then
+        message="[${url}] Error: Request timed out after 5 seconds."
+        echo "$message"
+        log_error "$message"
+        return
+    fi
+
     aca_origin=$(echo "$response" | grep -i "Access-Control-Allow-Origin" | awk '{print $2}' | tr -d '\r')
     aca_credentials=$(echo "$response" | grep -i "Access-Control-Allow-Credentials" | awk '{print $2}' | tr -d '\r')
 
