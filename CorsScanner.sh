@@ -12,7 +12,6 @@ scan_cors() {
     if [[ $? -ne 0 ]]; then
         message="[${url}] Error: Request timed out after 5 seconds."
         echo "$message"
-        log_error "$message"
         return
     fi
 
@@ -54,7 +53,6 @@ elif [[ "$1" == "-i" && -n "$2" ]]; then
     else
         message="[Error] File '$2' not found."
         echo "$message"
-        log_error "$message"
     fi
 else
     echo "Usage:"
