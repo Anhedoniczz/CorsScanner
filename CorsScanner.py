@@ -19,9 +19,10 @@ def scan_cors(url):
         aca_origin = cors_headers.get("Access-Control-Allow-Origin")
         if aca_origin:
             print(f"Access-Control-Allow-Origin: {aca_origin}")
-            if aca_origin == "*" or aca_origin == "evil.com":
-                message = f"[{url}] Potential vulnerability: Access-Control-Allow-Origin allows all origins."
+            if aca_origin == "evil.com":
+                message = f"[{url}] vulnerability: Access-Control-Allow-Origin allowed evil.com Origin."
                 print(message)
+                log_error(message)
         else:
             message = f"[{url}] Access-Control-Allow-Origin not found."
             print(message)
@@ -30,7 +31,7 @@ def scan_cors(url):
         if aca_credentials == "true":
             message = f"[{url}] Vulnerability: Access-Control-Allow-Credentials is set to true."
             print(message)
-            if aca_origin == "evil.com" or aca_origin == "*":
+            if aca_origin == "evil.com":
                 message = f"[{url}] Exploitable: Server accepts credentials from malicious origins."
                 print(message)
                 log_error(message)
