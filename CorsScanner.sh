@@ -21,9 +21,10 @@ scan_cors() {
 
     if [[ -n "$aca_origin" ]]; then
         echo "Access-Control-Allow-Origin: $aca_origin"
-        if [[ "$aca_origin" == "*" || "$aca_origin" == "evil.com" ]]; then
-            message="[${url}] Potential vulnerability: Access-Control-Allow-Origin allows all origins."
+        if [[ "$aca_origin" == "evil.com" ]]; then
+            message="[${url}] vulnerability: Access-Control-Allow-Origin allowed evil.com Origin."
             echo "$message"
+            log_error "$message"
         fi
     else
         message="[${url}] Access-Control-Allow-Origin not found."
@@ -33,7 +34,7 @@ scan_cors() {
     if [[ "$aca_credentials" == "true" ]]; then
         message="[${url}] Vulnerability: Access-Control-Allow-Credentials is set to true."
         echo "$message"
-        if [[ "$aca_origin" == "evil.com" || "$aca_origin" == "*" ]]; then
+        if [[ "$aca_origin" == "evil.com" ]]; then
             message="[${url}] Exploitable: Server accepts credentials from malicious origins."
             echo "$message"
             log_error "$message"
