@@ -38,11 +38,9 @@ def scan_cors(url):
     except requests.exceptions.Timeout:
         message = f"[{url}] Error: Request timed out after 5 seconds."
         print(message)
-        log_error(message)
     except Exception as e:
         message = f"[{url}] Error: {str(e)}"
         print(message)
-        log_error(message)
 
 def main():
     parser = argparse.ArgumentParser(description="CORS Exploit Scanner")
