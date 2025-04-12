@@ -24,7 +24,7 @@
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/CorsScanner.git
+git clone https://github.com/Anhedoniczz/CorsScanner.git
 cd CorsScanner
 ```
 ## Python Version Usage
